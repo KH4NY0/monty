@@ -9,41 +9,41 @@
  */
 void push(stack_t **stack, unsigned int line_number)
 {
-stack_t *node;
-int i = 0;
+	stack_t *node;
+	int i = 0;
 
-if (monty.arg == NULL)
-{
-fprintf(stderr, "L%u: usage: push integer\n", line_number);
-clean_exit(*stack);
-}
-if (monty.arg[0] == '-' || monty.arg[0] == '+')
-i++;
-if (monty.arg[i] == '\0')
-{
-fprintf(stderr, "L%u: usage: push integer\n", line_number);
-clean_exit(*stack);
-}
-for (; monty.arg[i] != '\0'; i++)
-{
-if (!isdigit((unsigned char)monty.arg[i]))
-{
-fprintf(stderr, "L%u: usage: push integer\n", line_number);
-clean_exit(*stack);
-}
-}
-node = malloc(sizeof(stack_t));
-if (node == NULL)
-{
-fprintf(stderr, "Error: malloc failed\n");
-clean_exit(*stack);
-}
-node->n = atoi(monty.arg);
-node->prev = NULL;
-node->next = *stack;
-if (*stack != NULL)
-(*stack)->prev = node;
-*stack = node;
+	if (monty.arg == NULL)
+	{
+		fprintf(stderr, "L%u: usage: push integer\n", line_number);
+		clean_exit(*stack);
+	}
+	if (monty.arg[0] == '-' || monty.arg[0] == '+')
+		i++;
+	if (monty.arg[i] == '\0')
+	{
+		fprintf(stderr, "L%u: usage: push integer\n", line_number);
+		clean_exit(*stack);
+	}
+	for (; monty.arg[i] != '\0'; i++)
+	{
+		if (!isdigit((unsigned char)monty.arg[i]))
+		{
+			fprintf(stderr, "L%u: usage: push integer\n", line_number);
+			clean_exit(*stack);
+		}
+	}
+	node = malloc(sizeof(stack_t));
+	if (node == NULL)
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+		clean_exit(*stack);
+	}
+	node->n = atoi(monty.arg);
+	node->prev = NULL;
+	node->next = *stack;
+	if (*stack != NULL)
+		(*stack)->prev = node;
+	*stack = node;
 }
 
 /**
@@ -55,14 +55,14 @@ if (*stack != NULL)
  */
 void pall(stack_t **stack, unsigned int line_number)
 {
-stack_t *current = *stack;
+	stack_t *current = *stack;
 
-(void)line_number;
-while (current != NULL)
-{
-printf("%d\n", current->n);
-current = current->next;
-}
+	(void)line_number;
+	while (current != NULL)
+	{
+		printf("%d\n", current->n);
+		current = current->next;
+	}
 }
 
 /**
@@ -74,12 +74,12 @@ current = current->next;
  */
 void pint(stack_t **stack, unsigned int line_number)
 {
-if (*stack == NULL)
-{
-fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
-clean_exit(*stack);
-}
-printf("%d\n", (*stack)->n);
+	if (*stack == NULL)
+	{
+		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
+		clean_exit(*stack);
+	}
+	printf("%d\n", (*stack)->n);
 }
 
 /**
@@ -91,18 +91,18 @@ printf("%d\n", (*stack)->n);
  */
 void pop(stack_t **stack, unsigned int line_number)
 {
-stack_t *top;
+	stack_t *top;
 
-if (*stack == NULL)
-{
-fprintf(stderr, "L%u: can't pop an empty stack\n", line_number);
-clean_exit(*stack);
-}
-top = *stack;
-*stack = top->next;
-if (*stack != NULL)
-(*stack)->prev = NULL;
-free(top);
+	if (*stack == NULL)
+	{
+		fprintf(stderr, "L%u: can't pop an empty stack\n", line_number);
+		clean_exit(*stack);
+	}
+	top = *stack;
+	*stack = top->next;
+	if (*stack != NULL)
+		(*stack)->prev = NULL;
+	free(top);
 }
 
 /**
@@ -114,20 +114,20 @@ free(top);
  */
 void swap(stack_t **stack, unsigned int line_number)
 {
-stack_t *first, *second;
+	stack_t *first, *second;
 
-if (*stack == NULL || (*stack)->next == NULL)
-{
-fprintf(stderr, "L%u: can't swap, stack too short\n", line_number);
-clean_exit(*stack);
-}
-first = *stack;
-second = first->next;
-first->next = second->next;
-if (second->next != NULL)
-second->next->prev = first;
-second->prev = NULL;
-second->next = first;
-first->prev = second;
-*stack = second;
+	if (*stack == NULL || (*stack)->next == NULL)
+	{
+		fprintf(stderr, "L%u: can't swap, stack too short\n", line_number);
+		clean_exit(*stack);
+	}
+	first = *stack;
+	second = first->next;
+	first->next = second->next;
+	if (second->next != NULL)
+		second->next->prev = first;
+	second->prev = NULL;
+	second->next = first;
+	first->prev = second;
+	*stack = second;
 }

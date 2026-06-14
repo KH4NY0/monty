@@ -8,27 +8,28 @@
  */
 void (*get_op_func(char *opcode))(stack_t **, unsigned int)
 {
-instruction_t ops[] = {
-{"push", push},
-{"pall", pall},
-{"pint", pint},
-{"pop", pop},
-{"swap", swap},
-{"add", add},
-{"nop", nop},
-{"div", _div},
-{"mul", mul},
-{NULL, NULL}
-};
-int i = 0;
+	instruction_t ops[] = {
+		{"push", push},
+		{"pall", pall},
+		{"pint", pint},
+		{"pop", pop},
+		{"swap", swap},
+		{"add", add},
+		{"nop", nop},
+		{"div", _div},
+		{"mul", mul},
+		{"sub", sub},
+		{NULL, NULL}
+	};
+	int i = 0;
 
-while (ops[i].opcode != NULL)
-{
-if (strcmp(ops[i].opcode, opcode) == 0)
-return (ops[i].f);
-i++;
-}
-return (NULL);
+	while (ops[i].opcode != NULL)
+	{
+		if (strcmp(ops[i].opcode, opcode) == 0)
+			return (ops[i].f);
+		i++;
+	}
+	return (NULL);
 }
 
 /**
@@ -39,14 +40,14 @@ return (NULL);
  */
 void free_stack(stack_t *stack)
 {
-stack_t *tmp;
+	stack_t *tmp;
 
-while (stack != NULL)
-{
-tmp = stack->next;
-free(stack);
-stack = tmp;
-}
+	while (stack != NULL)
+	{
+		tmp = stack->next;
+		free(stack);
+		stack = tmp;
+	}
 }
 
 /**
@@ -57,9 +58,9 @@ stack = tmp;
  */
 void clean_exit(stack_t *stack)
 {
-free_stack(stack);
-free(monty.line);
-if (monty.file != NULL)
-fclose(monty.file);
-exit(EXIT_FAILURE);
+	free_stack(stack);
+	free(monty.line);
+	if (monty.file != NULL)
+		fclose(monty.file);
+	exit(EXIT_FAILURE);
 }
