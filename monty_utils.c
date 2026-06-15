@@ -19,6 +19,12 @@ void (*get_op_func(char *opcode))(stack_t **, unsigned int)
 		{"div", _div},
 		{"mul", mul},
 		{"sub", sub},
+		{"pchar", pchar},
+		{"pstr", pstr},
+		{"rotl", rotl},
+		{"rotr", rotr},
+		{"stack", set_stack},
+		{"queue", set_queue},
 		{NULL, NULL}
 	};
 	int i = 0;
@@ -63,4 +69,26 @@ void clean_exit(stack_t *stack)
 	if (monty.file != NULL)
 		fclose(monty.file);
 	exit(EXIT_FAILURE);
+}
+
+/**
+ * is_integer - checks whether a string is a valid (optionally signed) integer
+ * @s: the string to validate
+ *
+ * Return: 1 if s is a valid integer, 0 otherwise
+ */
+int is_integer(char *s)
+{
+	int i = 0;
+
+	if (s[0] == '-' || s[0] == '+')
+		i++;
+	if (s[i] == '\0')
+		return (0);
+	for (; s[i] != '\0'; i++)
+	{
+		if (!isdigit((unsigned char)s[i]))
+			return (0);
+	}
+	return (1);
 }

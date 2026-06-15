@@ -52,6 +52,7 @@ typedef struct monty_s
 	char *arg;
 	char *line;
 	FILE *file;
+	int mode;
 } monty_t;
 
 extern monty_t monty;
@@ -61,6 +62,7 @@ void run_file(void);
 void (*get_op_func(char *opcode))(stack_t **, unsigned int);
 void free_stack(stack_t *stack);
 void clean_exit(stack_t *stack);
+int is_integer(char *s);
 
 /* opcodes */
 void push(stack_t **stack, unsigned int line_number);
@@ -73,5 +75,11 @@ void nop(stack_t **stack, unsigned int line_number);
 void _div(stack_t **stack, unsigned int line_number);
 void mul(stack_t **stack, unsigned int line_number);
 void sub(stack_t **stack, unsigned int line_number);
+void pchar(stack_t **stack, unsigned int line_number);
+void pstr(stack_t **stack, unsigned int line_number);
+void rotl(stack_t **stack, unsigned int line_number);
+void rotr(stack_t **stack, unsigned int line_number);
+void set_stack(stack_t **stack, unsigned int line_number);
+void set_queue(stack_t **stack, unsigned int line_number);
 
 #endif /* MONTY_H */

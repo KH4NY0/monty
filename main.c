@@ -1,6 +1,6 @@
 #include "monty.h"
 
-monty_t monty = {NULL, NULL, NULL};
+monty_t monty = {NULL, NULL, NULL, 0};
 
 /**
  * run_file - reads the Monty file line by line and runs each opcode

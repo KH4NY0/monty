@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -pedantic -std=c89
-SRC = main.c monty_utils.c opcodes1.c opcodes2.c
+SRC = main.c monty_utils.c opcodes1.c opcodes2.c opcodes3.c opcodes4.c
 OBJ = $(SRC:.c=.o)
 NAME = monty
 

@@ -9,28 +9,12 @@
  */
 void push(stack_t **stack, unsigned int line_number)
 {
-	stack_t *node;
-	int i = 0;
+	stack_t *node, *tail;
 
-	if (monty.arg == NULL)
+	if (monty.arg == NULL || !is_integer(monty.arg))
 	{
 		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		clean_exit(*stack);
-	}
-	if (monty.arg[0] == '-' || monty.arg[0] == '+')
-		i++;
-	if (monty.arg[i] == '\0')
-	{
-		fprintf(stderr, "L%u: usage: push integer\n", line_number);
-		clean_exit(*stack);
-	}
-	for (; monty.arg[i] != '\0'; i++)
-	{
-		if (!isdigit((unsigned char)monty.arg[i]))
-		{
-			fprintf(stderr, "L%u: usage: push integer\n", line_number);
-			clean_exit(*stack);
-		}
 	}
 	node = malloc(sizeof(stack_t));
 	if (node == NULL)
@@ -40,10 +24,20 @@ void push(stack_t **stack, unsigned int line_number)
 	}
 	node->n = atoi(monty.arg);
 	node->prev = NULL;
-	node->next = *stack;
-	if (*stack != NULL)
-		(*stack)->prev = node;
-	*stack = node;
+	node->next = NULL;
+	if (monty.mode == 0 || *stack == NULL)
+	{
+		node->next = *stack;
+		if (*stack != NULL)
+			(*stack)->prev = node;
+		*stack = node;
+		return;
+	}
+	tail = *stack;
+	while (tail->next != NULL)
+		tail = tail->next;
+	tail->next = node;
+	node->prev = tail;
 }
 
 /**
